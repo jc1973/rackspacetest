@@ -1,0 +1,35 @@
+{
+  "name": "lintest",
+  "description": "Rackspace CMS test - linux",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+    "wordpress": {
+      "dir": "/var/www/vhosts/lin-test.rackstage.co.uk/public_html",
+      "server_aliases": [ "cms-deploy-test-lin" , "lin-test.rackstage.co.uk"],
+      "db": {
+        "database": "lintest_wpdb",
+        "user": "lintest_user",
+        "password": "lintest_user"
+      }
+    },
+    "memcached": {
+      "memory": 64,
+      "user": "memcache",
+      "port": 11211,
+      "udp_port": 11211,
+      "listen": "127.0.0.1",
+      "maxconn": 2048,
+      "logfilename": "/var/log/memcached.log"
+    }
+  },
+  "override_attributes": {
+  },
+  "chef_type": "role",
+  "run_list": [
+    "role[postfix]",
+    "role[memcached]",
+    "role[wordpress]"
+  ],
+  "env_run_lists": {
+  }
+}
